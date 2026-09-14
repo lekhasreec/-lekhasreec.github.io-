@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekhasree C — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1120;
+    --paper:#F6F4EE;
+    --paper-dim:#EAE6DA;
+    --gold:#C89B3C;
+    --teal:#2F6F6E;
+    --line:#D8D2C0;
+    --text-dark:#1A1D23;
+    --text-mute:#5B5E66;
+    --tag-bg:#FFFFFF;
+    --surface:var(--paper);
+  }
+  html[data-theme="dark"]{
+    --surface:#10141F;
+    --paper-dim:#1B2233;
+    --line:#2A3245;
+    --text-dark:#E7E9EE;
+    --text-mute:#9AA0AC;
+    --tag-bg:#1B2233;
+  }
+  body, .tag, section, .side{
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--surface);
+    color:var(--text-dark);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.55;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+  .wrap main{ flex:1 1 auto; min-width:0; }
+  @media (min-width:861px){
+    .wrap{ flex-direction:row; }
+    .wrap .side{ flex:0 0 300px; width:300px; }
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .side{
+    background:var(--ink);
+    color:var(--paper);
+    padding:40px 36px;
+    display:flex;
+    flex-direction:column;
+  }
+  .side-bottom{ margin-top:32px; }
+  @media (min-width:861px){
+    .side{
+      position:sticky;
+      top:0;
+      height:100vh;
+      justify-content:space-between;
+      padding:48px 36px;
+    }
+    .side-bottom{ margin-top:0; }
+  }
+  .side-top .name{
+    font-size:1.7rem;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .side-top .name-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .theme-toggle{
+    flex:0 0 auto;
+    width:34px; height:34px;
+    border-radius:50%;
+    border:1px solid #33394A;
+    background:transparent;
+    color:var(--paper);
+    font-size:0.95rem;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .theme-toggle:hover{border-color:var(--gold); color:var(--gold);}
+  .side-top .role{
+    margin-top:6px;
+    font-size:0.92rem;
+    color:var(--gold);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .side-nav{
+    margin-top:52px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .side-nav a{
+    font-size:0.95rem;
+    color:#AEB4C2;
+    text-decoration:none;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .side-nav a:hover{color:var(--paper);}
+  .side-nav a .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--teal);
+  }
+  .side-bottom{
+    font-size:0.82rem;
+    color:#8A90A0;
+  }
+  .side-bottom .contact-line{
+    display:block;
+    margin-bottom:8px;
+    word-break:break-word;
+    text-decoration:none;
+  }
+  .side-bottom a.contact-line:hover{color:var(--gold);}
+  .download-btn{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 18px;
+    background:var(--gold);
+    color:var(--ink);
+    font-weight:600;
+    font-size:0.85rem;
+    text-decoration:none;
+    border-radius:2px;
+  }
+  .download-btn:hover{background:#DCAE4E;}
+
+  /* ---------- MAIN ---------- */
+  main{padding:64px 64px 40px;}
+  @media (max-width:860px){ main{padding:40px 24px;} }
+  section{
+    max-width:720px;
+    margin:0 0 96px;
+    scroll-margin-top:32px;
+  }
+  section:last-of-type{margin-bottom:48px;}
+
+  .sec-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--teal);
+    margin-bottom:10px;
+  }
+  h2{
+    font-size:1.6rem;
+    font-weight:600;
+    margin-bottom:20px;
+    border-bottom:2px solid var(--text-dark);
+    display:inline-block;
+    padding-bottom:6px;
+  }
+
+  /* HERO */
+  .hero{margin-top:0;}
+  .hero h1{
+    font-size:2.6rem;
+    line-height:1.15;
+    font-weight:700;
+    max-width:620px;
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.05rem;
+    color:var(--text-mute);
+    max-width:560px;
+  }
+  .terminal{
+    margin-top:40px;
+    background:var(--ink);
+    color:#D7E4E3;
+    border-radius:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.88rem;
+    max-width:560px;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(11,17,32,0.18);
+  }
+  .terminal .bar{
+    background:#161E30;
+    padding:8px 14px;
+    display:flex;
+    gap:6px;
+  }
+  .terminal .dot{width:9px; height:9px; border-radius:50%;}
+  .terminal .r{background:#E4635B;}
+  .terminal .y{background:#E5B85C;}
+  .terminal .g{background:#4CAF7D;}
+  .terminal .body{padding:18px 20px 22px; white-space:pre-wrap;}
+  .terminal .prompt{color:var(--gold);}
+  .terminal .out{color:#AEB9C6;}
+
+  /* ABOUT */
+  .about p{max-width:640px; font-size:1rem; color:var(--text-dark);}
+  .about p + p{margin-top:14px;}
+
+  /* SKILLS */
+  .skill-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px 40px;
+  }
+  .skill-grid .skill-group{ flex:1 1 260px; min-width:220px; }
+  .skill-group h3{
+    font-size:0.82rem;
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--teal);
+    text-transform:none;
+    margin-bottom:10px;
+    font-weight:500;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    padding:5px 10px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--tag-bg);
+  }
+
+  /* PROJECTS */
+  .project{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+  }
+  .project:first-of-type{border-top:none; padding-top:8px;}
+  .project-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .project h3{font-size:1.25rem; font-weight:600;}
+  .project .links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--teal);
+    text-decoration:none;
+    border-bottom:1px solid var(--teal);
+  }
+  .project p{margin-top:12px; color:var(--text-dark); max-width:640px;}
+  .project ul{margin-top:10px; padding-left:18px; color:var(--text-dark);}
+  .project ul li{margin-bottom:6px;}
+  .project .highlight{
+    display:inline-block;
+    margin-top:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--ink);
+    background:var(--gold);
+    padding:4px 10px;
+    border-radius:3px;
+  }
+  .project .tags{margin-top:14px;}
+
+  .project-add{
+    border:1px dashed var(--line);
+    border-top:1px dashed var(--line);
+    border-radius:6px;
+    padding:26px 24px;
+    margin-top:24px;
+    color:var(--text-mute);
+  }
+  .project-add h3{font-size:1.05rem; color:var(--text-dark); font-weight:600;}
+  .project-add p{margin-top:8px; font-size:0.92rem; max-width:560px;}
+
+  /* EDUCATION timeline */
+  .timeline{border-left:2px solid var(--text-dark); margin-left:6px;}
+  .t-item{
+    position:relative;
+    padding:2px 0 26px 28px;
+  }
+  .t-item::before{
+    content:"";
+    position:absolute;
+    left:-7px; top:4px;
+    width:12px; height:12px;
+    background:var(--gold);
+    border-radius:50%;
+    border:2px solid var(--surface);
+  }
+  .t-item .yr{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--teal);
+  }
+  .t-item h4{font-size:1.05rem; font-weight:600; margin-top:4px;}
+  .t-item .meta{font-size:0.88rem; color:var(--text-mute); margin-top:2px;}
+
+  /* CERTS */
+  .cert-list{list-style:none;}
+  .cert-list li{
+    display:flex;
+    gap:12px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    font-size:0.95rem;
+  }
+  .cert-list li:last-child{border-bottom:none;}
+  .cert-list .mark{color:var(--gold); font-family:'IBM Plex Mono', monospace;}
+
+  /* CONTACT / FOOTER */
+  .contact-cta{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:8px;
+    padding:44px 40px;
+    max-width:720px;
+  }
+  .contact-cta h2{border:none; color:var(--paper); padding-bottom:0;}
+  .contact-cta p{color:#B7BDC9; margin-top:10px; max-width:480px;}
+  .contact-links{
+    margin-top:26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .contact-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--paper);
+    text-decoration:none;
+    border:1px solid #33394A;
+    padding:9px 14px;
+    border-radius:4px;
+  }
+  .contact-links a:hover{border-color:var(--gold); color:var(--gold);}
+  .contact-links a.primary{
+    background:var(--gold);
+    color:var(--ink);
+    border-color:var(--gold);
+    font-weight:600;
+  }
+  footer{
+    text-align:center;
+    font-size:0.78rem;
+    color:var(--text-mute);
+    padding:28px 0 0;
+    font-family:'IBM Plex Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <aside class="side">
+    <div class="side-top">
+      <div class="name-row">
+        <div class="name">Lekhasree C</div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">☾</button>
+      </div>
+      <div class="role">MCA Graduate · Software Developer</div>
+      <nav class="side-nav">
+        <a href="#about"><span class="tag">01</span> About</a>
+        <a href="#skills"><span class="tag">02</span> Skills</a>
+        <a href="#projects"><span class="tag">03</span> Projects</a>
+        <a href="#education"><span class="tag">04</span> Education</a>
+        <a href="#certifications"><span class="tag">05</span> Certifications</a>
+        <a href="#contact"><span class="tag">06</span> Contact</a>
+      </nav>
+    </div>
+    <div class="side-bottom">
+      <span class="contact-line">Gudiyatham / Vellore , TN</span>
+      <span class="contact-line">lekhasreec295@gmail.com</span>
+      <span class="contact-line">+91 9791422572</span>
+      <span class="contact-line"></span>
+       <a class="contact-line" href="https://github.com/lekhasreec" target="_blank" rel="noopener">Github Profile</a>
+      <a class="contact-line" href="https://linkedin.com/in/lekhasree-c" target="_blank" rel="noopener">Linkedin Profile</a>
+      <a class="download-btn" href="Lekhasree_C_Resume.pdf" download>↓ Download Resume</a>
+    </div>
+  </aside>
+
+  <main>
+
+    <section class="hero" id="top">
+      <h1>Building careful, well-researched software — and evaluating it just as carefully.</h1>
+      <p class="lede">MCA graduate (8.85 CGPA) with a foundation in Python, C, C++ and databases, and a research-first habit built through academic projects and a published conference paper. Looking to grow as a Software Developer, or in roles where reading closely, researching independently, and judging content quality matter.</p>
+
+      <div class="terminal">
+        <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+        <div class="body"><span class="prompt">$</span> whoami
+<span class="out">Lekhasree C — MCA '26, Priyadarshini Engineering College</span>
+<span class="prompt">$</span> cat interests.txt
+<span class="out">problem solving · data · research · writing</span>
+<span class="prompt">$</span> ./status
+<span class="out">open to Software Developer &amp; content evaluation roles</span></div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="sec-label">// about</div>
+      <h2>About</h2>
+      <div class="about">
+        <p>I'm an MCA graduate from Priyadarshini Engineering College, with a B.Sc. in Computer Science before that. Across both degrees I've stayed close to two things: writing programs that solve a real, specific problem, and reading widely enough to understand a problem before I try to solve it.</p>
+        <p>My final-year project — an academic project approval workflow — grew out of watching how much manual back-and-forth went into something that should have been simple, and it was later presented as a paper at NCAAIT'26. Outside of coursework, I write, sketch, and keep practicing code in equal measure.</p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="sec-label">// skills</div>
+      <h2>Skills</h2>
+      <div class="skill-grid">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="tag-row">
+            <span class="tag">Python</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tools &amp; Platforms</h3>
+          <div class="tag-row">
+            <span class="tag">MS Office</span><span class="tag">Power BI</span><span class="tag">Git / GitHub</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Core Concepts</h3>
+          <div class="tag-row">
+            <span class="tag">OOP</span><span class="tag">Data Structures</span><span class="tag">Problem Solving</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Research &amp; Evaluation</h3>
+          <div class="tag-row">
+            <span class="tag">Independent Research</span><span class="tag">Fact Assessment</span><span class="tag">Critical Reading</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="sec-label">// selected work</div>
+      <h2>Projects</h2>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>Academic Project Approval Workflow</h3>
+          <div class="links"><a href="https://github.com/lekhasreec/academic-project-approval-workflow" target="_blank" rel="noopener">View on GitHub ↗</a></div>
+        </div>
+        <p>A system that replaces the manual, paper-heavy process colleges use to submit and approve final-year projects with a single digital workflow.</p>
+        <ul>
+          <li>Students submit project proposals online instead of on paper or over email.</li>
+          <li>Faculty review, approve, or request changes to proposals digitally, with a clear status trail.</li>
+          <li>Designed to cut down the back-and-forth typical of manual academic approval processes.</li>
+        </ul>
+        <span class="highlight">Presented as a research paper at NCAAIT'26 — National Conference on Automation using AI Technology, March 2026</span>
+        <div class="tags tag-row">
+          <span class="tag">PHP</span><span class="tag">SQL</span><span class="tag">Workflow Design</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>Agriculture Seeds Management System</h3>
+          <div class="links"><a href="https://github.com/lekhasreec/agriculture-seeds-management-system" target="_blank" rel="noopener">View on GitHub ↗</a></div>
+        </div>
+        <p>A record-keeping system built for agricultural seed inventory, aimed at replacing error-prone manual tracking with structured digital records.</p>
+        <ul>
+          <li>Manages seed inventory and tracks stock levels as they move.</li>
+          <li>Records distribution details to keep an accurate history of what left the store and when.</li>
+          <li>Reduces manual tracking errors through consistent, structured data entry.</li>
+        </ul>
+        <div class="tags tag-row">
+          <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Data Management</span>
+        </div>
+      </div>
+
+      <!-- EDIT: fill this in with your next project, then remove the dashed style -->
+      <div class="project-add">
+        <h3>+ Your next project</h3>
+        <p>Add a title, a one-line description of the problem it solves, a couple of bullet points, and a GitHub link here — following the same pattern as the projects above.</p>
+      </div>
+    </section>
+      <!-- EDIT: fill this in with your next project, then remove the dashed style -->
+      <div class="project-add">
+        <h3>+ Your next project</h3>
+        <p>Add a title, a one-line description of the problem it solves, a couple of bullet points, and a GitHub link here — following the same pattern as the projects above.</p>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="sec-label">// education</div>
+      <h2>Education</h2>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="yr">2024 – 2026</div>
+          <h4>MCA — Priyadarshini Engineering College</h4>
+          <div class="meta">8.85 CGPA</div>
+        </div>
+        <div class="t-item">
+          <div class="yr">2021 – 2024</div>
+          <h4>B.Sc. Computer Science — Abiraami Arts and Science College for Women</h4>
+          <div class="meta">8.02 CGPA</div>
+        </div>
+        <div class="t-item">
+          <div class="yr">2020 – 2021</div>
+          <h4>HSC (12th) — Thiruvalluvar Hr. Sec. School</h4>
+          <div class="meta">90%</div>
+        </div>
+        <div class="t-item">
+          <div class="yr">2018 – 2019</div>
+          <h4>SSLC (10th) — Thiruvalluvar Hr. Sec. School</h4>
+          <div class="meta">87%</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications">
+      <div class="sec-label">// certifications &amp; workshops</div>
+      <h2>Certifications</h2>
+      <ul class="cert-list">
+        <li><span class="mark">›</span> Advanced Diploma in Python Programming</li>
+        <li><span class="mark">›</span> Diploma in Computer Application — Basic Computer, MS Office, HTML, OOP, C, C++, Java</li>
+        <li><span class="mark">›</span> SQL, C, C++, SQL Intermediate — Sololearn</li>
+        <li><span class="mark">›</span> Firewalls — Great Learning</li>
+        <li><span class="mark">›</span> National Level Seminar on Classical Cryptography — KMG College</li>
+        <li><span class="mark">›</span> Web Designing Competition — Participant</li>
+        <li><span class="mark">›</span> Paper presentation, "Academic Project Approval Workflow" — NCAAIT'26, Er. Perumal Manimekalai College of Engineering, Hosur</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <div class="contact-cta">
+        <h2>Let's work together</h2>
+        <p>Open to Software Developer roles and opportunities in content evaluation or AI data quality work. I reply quickly and am happy to walk through any project in more depth.</p>
+        <div class="contact-links">
+          <a class="primary" href="Lekhasree_C_Resume.pdf" download>↓ Download Resume</a>
+          <a href="mailto:lekhasreec295@gmail.com">lekhasreec295@gmail.com</a>
+          <a href="https://github.com/lekhasreec" target="_blank" rel="noopener">github.com/lekhasreec</a>
+          <!-- EDIT: replace with your LinkedIn profile URL -->
+          <a href="https://linkedin.com/in/lekhasree-c" target="_blank" rel="noopener">linkedin.com/in/lekhasree-c</a>
+        </div>
+      </div>
+      <footer>Tamil · English · Telugu — built by Lekhasree C</footer>
+    </section>
+
+  </main>
+</div>
+<script>
+  function applyTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    var btn = document.getElementById('theme-toggle');
+    if(btn){ btn.textContent = theme === 'dark' ? '☀' : '☾'; }
+  }
+  function toggleTheme(){
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('lc-portfolio-theme', next);
+    applyTheme(next);
+  }
+  (function(){
+    var saved = localStorage.getItem('lc-portfolio-theme') || 'light';
+    applyTheme(saved);
+  })();
+</script>
+</body>
+</html>
